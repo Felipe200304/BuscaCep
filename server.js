@@ -1,14 +1,16 @@
 import express from 'express';
 import cors from 'cors'
+import dotenv from 'dotenv';
 
 import { getEnderecos, getEnderecoByCep, salvarCep2 } from './conexao_database.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-const port = 3000;
+dotenv.config();
 
-const PORT = 3000
+const PORT = 3000;
+
 
 app.listen(process.env.PORT || PORT, () => {
   console.log('Servidor iniciado na porta 3000');
@@ -60,7 +62,3 @@ app.post('/enderecos/salvar', ({ body }, res) => {
         return res.status(201).json({ msg: 'O cep: ' + body.cep + ' foi salvo com sucesso!' });
     }
   })
-
-app.listen(port, () => {
-    console.log(`Servidor rodando em porta: ${port}`);
-});
