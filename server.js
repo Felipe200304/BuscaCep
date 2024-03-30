@@ -1,20 +1,12 @@
 import express from 'express';
 import cors from 'cors'
-import dotenv from 'dotenv';
 
 import { getEnderecos, getEnderecoByCep, salvarCep2 } from './conexao_database.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-dotenv.config();
-
-const PORT = 3000;
-
-
-app.listen(process.env.PORT || PORT, () => {
-  console.log('Servidor iniciado na porta 3000');
-})
+const port = 3000;
 
 // Rota para buscar informações de um CEP
 app.get('/enderecos', async (req, res) => {
@@ -39,12 +31,6 @@ app.post('/enderecos/salvar', ({ body }, res) => {
       return;
     }
 
-    const existsByCep = getEnderecoByCep(body.cep);
-
-    if (existsByCep) {
-        res.status(400).json({ msg: 'Já possui um endereço salvo para o mesmo CEP.' });
-        return;
-    }
   
     const result = salvarCep2({ 
         cep: body.cep, 
@@ -62,3 +48,7 @@ app.post('/enderecos/salvar', ({ body }, res) => {
         return res.status(201).json({ msg: 'O cep: ' + body.cep + ' foi salvo com sucesso!' });
     }
   })
+
+app.listen(port, () => {
+    console.log(`Servidor rodando em porta: ${port}`);
+});
