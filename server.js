@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors'
 
-import { getEnderecos, getEnderecoByCep, salvarCep2 } from './conexao_database.js';
+import { getEnderecos, salvarCep2 } from './conexao_database.js';
 
 const app = express();
 app.use(cors());
@@ -15,7 +15,7 @@ app.get('/enderecos', async (req, res) => {
         res.json(data);
     } catch (error) {
         console.error('Erro ao obter endereços salvos', error);
-        res.status(500).json({ error: 'Erro ao obter endereços salvos' });
+        res.status(500).json({ error: 'Erro ao obter endereços salvos.' });
     }
 });
 
