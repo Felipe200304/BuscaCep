@@ -8,6 +8,12 @@ app.use(cors());
 app.use(express.json());
 const port = 3000;
 
+const PORT = 3000
+
+app.listen(process.env.PORT || PORT, () => {
+  console.log('Servidor iniciado na porta 3000');
+})
+
 // Rota para buscar informações de um CEP
 app.get('/enderecos', async (req, res) => {
     try {
